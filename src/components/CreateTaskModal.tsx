@@ -18,7 +18,7 @@ function getModalStyle() {
 }
 
 const CreateTaskModal = (props: Props) => {
-    const useStyles = makeStyles((theme) => ({
+    const useStyles = makeStyles((theme: { palette: { background: { paper: any; }; }; shadows: any[]; spacing: (arg0: number, arg1: number, arg2: number) => any; }) => ({
         paper: {
             position: "absolute",
             width: 400,
@@ -31,7 +31,7 @@ const CreateTaskModal = (props: Props) => {
     const [open, setOpen] = React.useState(false);
     const classes = useStyles;
     const body = (
-        <div>
+        <div style={modalStyle} >
             <h2 id="simple-modal-title">Text in a modal</h2>
             <p id="simple-modal-description">
                 Pinto pequeno não forma cu

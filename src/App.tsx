@@ -8,8 +8,8 @@ import Task from './components/Task';
 
 function App() {
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
-  const [creteModalOpen, setCreateModalOpen] = useState(false);
-  const [createTaskModalOpen, setCreateTaskModalOpen] = useState(false);
+//  const [creteModalOpen, setCreateModalOpen] = useState(false);
+//  const [createTaskModalOpen, setCreateTaskModalOpen] = useState(false);
 
   useEffect(() => {
     async function fetchAll() {
@@ -25,7 +25,6 @@ function App() {
 
   return (
     <div className="App">
-      
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
