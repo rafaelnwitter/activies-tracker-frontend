@@ -5,10 +5,14 @@ import { TaskDTO } from './task-api/dto/task.dto';
 import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import Task from './components/Task';
 import CreateTaskModal from './components/CreateTaskModal';
+import EditTaskModal from './components/EditTaskModal';
+
 
 function App() {
   const [tasks, setTasks] = useState<TaskDTO[]>([]);
   const [createTaskModalOpen, setCreateTaskModalOpen] = useState(false);
+  const [updateTaskModalOpen, setUpdateTaskModalOpen] = useState(false);
+  const [taskBeingEdited, setTaskBeingEdited] = useState<undefined | TaskDTO>(undefined)
 
   const addTask = (task: TaskDTO) => {
     setTasks([...tasks, task])
@@ -16,6 +20,19 @@ function App() {
 
   const deleteTask = (taskId: number) => {
     setTasks(tasks.filter((x) => x.id !== taskId));
+  }
+
+  const updateTask = (task: TaskDTO) => {
+    setTasks(
+      tasks.map(x => {
+        if(x.id === task.id) return task;
+        return x;
+      })
+    );
+  }
+
+  const onTaskEdotBtnClicked = (task: TaskDTO) => {
+
   }
 
   useEffect(() => {
@@ -35,6 +52,12 @@ function App() {
         handleClose={() => setCreateTaskModalOpen(false)} 
         onTaskCreated={addTask}
       />
+      <EditTaskModal 
+        data={taskBeingEdited}
+        open={updateTaskModalOpen} 
+        handleClose={() => setUpdateTaskModalOpen(false)} 
+        onTaskUpdate={updateTask}
+      />
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -51,7 +74,10 @@ function App() {
       {tasks.map(task => {
           return (
           <Grid item xs={3} key={task.id}>
-            <Task data={task} onTaskDelete={deleteTask}/>
+            <Task data={task} onTaskDelete={deleteTask} onTaskUpdate={(task: TaskDTO) => {
+              setTaskBeingEdited(task);
+              setUpdateTaskModalOpen(true);
+            }}/>
           </Grid>);
          })}
       </Grid>

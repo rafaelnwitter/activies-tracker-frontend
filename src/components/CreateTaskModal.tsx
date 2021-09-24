@@ -63,7 +63,7 @@ const CreateTaskModal = (props: props) => {
                     Create New Task
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    Create a new work
                 </Typography>
                 <TextField placeholder="Title" variant="filled" fullWidth onChange={(e) => setTitle(e.target.value)} />
                 <TextField placeholder="Description" variant="filled" fullWidth onChange={(e) => setDescription(e.target.value)} />
