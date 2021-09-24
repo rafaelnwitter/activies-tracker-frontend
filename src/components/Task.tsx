@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskDTO } from "../task-api/dto/task.dto";
+import { TaskDTO, TaskStatus } from "../task-api/dto/task.dto";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -20,6 +20,25 @@ const Task = ({ data, onTaskDelete, onTaskUpdate }: Props) => {
         await TaskAPI.deleteOne(data.id);
         // onTaskDelete(data.id);
     };
+
+    const getTaskStatusToString = (status: TaskStatus) => {
+        let text: string;
+
+        switch(status){
+            case TaskStatus.Created:
+                text = "Created";
+                break;
+            case TaskStatus.InProgress:
+                text = "In Progress";
+                break;
+            case TaskStatus.Done:
+                text = "Done";
+                break;
+            default:
+                text = "";
+        }
+        return text
+    }
     return (
         <Card variant="outlined">
             <CardContent>
@@ -33,7 +52,7 @@ const Task = ({ data, onTaskDelete, onTaskUpdate }: Props) => {
                   variant="body2" component="p">
                     {data.description}
                 </Typography>
-                <Chip label="Created" />
+                <Chip label={getTaskStatusToString(data.status)} />
             </CardContent>
             <CardActions>
                 <Container>
